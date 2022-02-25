@@ -1,0 +1,67 @@
+<div class="frow">
+  <br>
+  <h4>Token Balance / Transfer</h4>
+</div>
+<div  class="frow">
+  <div class="flexbox-item flexbox-item-1">
+  
+    <label for="networkInput">Network</label>
+    <select class="form-control" id="network" placeholder="Network" [(ngModel)]="network" name="networkInput">
+      <option *ngFor="let n of selectOptions.networks" [value]="n">{{n}}</option>
+    </select>
+    
+        <label for="contract">Contract</label>
+        <select class="form-control" id="contractInput" placeholder="Contract" [(ngModel)]="contract" name="contractInput">
+          <option *ngFor="let c of contracts" [ngValue]="c">{{c.name}}</option>
+        </select>
+        <div class="form-group">
+          <label for="addressInput">Address</label>
+          <select class="form-control" id="addressInput" placeholder="Address" [(ngModel)]="address" name="addressInput">
+            <option *ngFor="let a of networkAddresses" [ngValue]="a">{{a.type}} | {{a.network}} | {{a.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary margin" id="btnEthBalance" (click)="getBalance()" name="btnEthBalance">
+              Get Address Balance
+            </button>
+          </div>
+          <div class="form-group">
+          
+    <label for="msgSenderInput">Message Sender</label>
+    <select class="form-control" id="msgSenderInput" placeholder="Message Sender" [(ngModel)]="msgSender" name="msgSenderInput">
+      <option *ngFor="let a of accounts" [ngValue]="a">{{a.name}}</option>
+    </select>
+  </div>
+  <label for="amountInput">Amount</label>
+    <input  class="form-control" type="number" id="amountInput" name="amountInput" [(ngModel)]="amount">
+    <button style="margin-left: 5px" class="btn btn-primary margin" id="btnTransferEth" (click)="transferToken()" name="btnTransferEth">
+      Transfer Tokens
+    </button>
+
+  </div>
+ 
+  <div class="fcol flexbox-item2 flexbox-item-1">
+   <div  style="font-size: .9rem;">
+    <a *ngIf="address" href="https://{{network}}.etherscan.io/token/{{contractAddress}}?a={{address.address}}" target="blank">Etherscan</a>
+   </div>  
+   <div>
+     <strong>Network: </strong> {{network}}
+   </div>
+   <div>
+     <strong>Contract Address: </strong> {{contractAddress}}
+   </div>
+   <div>
+     <strong>Target Address: </strong> <span *ngIf="address"> {{address.address}}</span> 
+   </div>
+   <div>
+     <strong>Token Balance: </strong> <span  *ngIf="balanceReceived"> {{balance | number}} {{contract.body.symbol}}</span> 
+   </div>
+      <h6 *ngIf="transferResult">Transfer Result: </h6>
+    <pre>
+     {{transferResult| json}}
+    </pre>
+  </div>  
+</div>
+
+<spinner *ngIf="!true"></spinner>
+

@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4 mx-auto">
+      <div class="loader mx-auto"></div>
+      <div *ngIf="!message" class="mx-auto">
+        <br>
+        The servers are currently on 'free-tier' so may take up to 30 seconds to load initially.
+      </div>
+      <div *ngIf="message" class="mx-auto">
+        <br>
+        {{message}}
+      </div>
+    </div>
+    <div class="col-md-4">
+
+    </div>
+  </div>
+</div>

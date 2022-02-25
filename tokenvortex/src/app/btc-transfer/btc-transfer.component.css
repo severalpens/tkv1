@@ -1,0 +1,31 @@
+.margin{
+  margin: 10px;
+}
+.margin-sm{
+  margin-top: 2px;
+  margin-bottom: 2px;  
+  margin-left: 2px;
+}
+.margin-tb{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.mat-form-field + .mat-form-field {
+  margin-left: 8px;
+}
+
+.overflow{
+  height: 500px;
+  overflow: auto;
+  padding-bottom: 300px;
+}
+
+.flex{
+  display: flexbox;
+}
+
+.border{
+  border: 2px;
+  border-radius: 10px;
+}

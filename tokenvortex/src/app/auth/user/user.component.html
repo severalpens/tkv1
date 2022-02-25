@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <br>
+      <h3>{{username}} </h3>
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <button class="btn alert alert-primary" (click)="logout()">
+        <span><strong>Log Out</strong></span>
+      </button>
+      <br>
+      <br>
+      <!-- <button class="btn alert alert-success" (click)="seed()">
+        <span><strong>Seed^</strong></span>
+      </button>
+      <br>
+      ^Add 2 random accounts and 1 ERC20 contract. -->
+    </div>
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-md-6">
+      <strong>User:</strong>
+      <br>
+      Id: {{currentUser.user_id}}
+      <br>
+      Name: {{currentUser.username}}
+      <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <pre>
+        {{entities | json}}
+      </pre>
+    </div>
+  </div>
+</div>

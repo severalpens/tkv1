@@ -1,0 +1,57 @@
+  <table *ngIf="b" class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>{{b.settings.senderNetwork}}</th>
+        <th></th>
+        <th>{{b.settings.recipientNetwork}}</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bal of b.balances; let i=index">
+        <td>
+          {{bal.target}} {{bal.type}}
+        </td>
+        <td>
+          <a [href]="bal.senderNetworkLink" target="blank">
+            {{bal.senderNetworkBalance}}
+          </a>
+        </td>
+        <td>
+          <fa-icon *ngIf="bal.senderNetworkStatus === 'sufficient'" style="color:green" [icon]="faCheck"></fa-icon>
+          <fa-icon *ngIf="bal.senderNetworkStatus === 'insufficient'" style="color:red" [icon]="faTimes"></fa-icon>
+        </td>
+        <td>
+          <a [href]="bal.recipientNetworkLink" target="blank">
+
+          {{bal.recipientNetworkBalance}}
+        </a>
+
+        </td>
+        <td>
+          <fa-icon *ngIf="bal.recipientNetworkStatus  === 'sufficient'" style="color:green" [icon]="faCheck"></fa-icon>
+          <fa-icon *ngIf="bal.recipientNetworkStatus === 'insufficient'" style="color:red" [icon]="faTimes"></fa-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="form-group">
+    <button  *ngIf="!refreshingBalances" (click)="refreshBalances()" class="btn btn-primary" type="button">
+      Refresh
+    </button>
+    <button *ngIf="refreshingBalances" class="btn btn-primary" type="button" disabled>
+      <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+      Refreshing...
+    </button>        
+    {{refreshed}}
+
+  <button  *ngIf="!recalculatingBalances" (click)="recalculateBalances()" class="btn btn-primary" type="button">
+    Recalculate
+  </button>
+  <button *ngIf="recalculatingBalances" class="btn btn-primary" type="button" disabled>
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Recalculating...
+  </button>        
+  {{recalculated}}
+</div>  

@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="row">
+    <div *ngIf="entities" class="col-sm-2  margin">
+      <button class="btn btn-sm btn-outline btn-primary margin" (click)="add()">Add Field</button>
+      <h6>Custom Fields</h6>
+      <div *ngFor="let e of entities; let i=index;" (click)="entity = e" class="btn alert  d-block align-left"
+        [class.alert-primary]="e === entity" [class.alert-secondary]="e !== entity">
+        <strong>
+          <span>{{ e.name }}</span>
+        </strong>
+      </div>
+    </div>
+    <div *ngIf="!entity" class="col-sm-4">
+      <h6>Custom Fields</h6>
+    </div>
+    <div *ngIf="entity" class="col-sm-4">
+      <h6>Custom Field - {{entity.name}}</h6>
+      <form class="form" id="entityForm" name="entity" #contractForm="ngForm">
+        <div class="form-group">
+          <label for="type">Type</label>
+          <select class="form-control" id="type" required [(ngModel)]="entityType" name="entity">
+            <option *ngFor="let t of selectOptions.customFieldTypes" [value]="t.value">{{t.text}}</option>
+          </select>
+        </div>
+        <div *ngIf="entity.entityType" class="form-group">
+          <label for="type">name</label>
+          <input type="text" class="form-control" placeholder="amount" id="name" name="name" [(ngModel)]="entity.name">
+        </div>
+        <div *ngIf="entity.entityType && entity.entityType === 'hashPair'" class="form-group">
+          <label for="lifespan">Lifespan</label>
+          <select class="form-control" id="lifespan" required [(ngModel)]="entity.lifespan" name="lifespan">
+            <option *ngFor="let ls of selectOptions.lifespans" [value]="ls.value">{{ls.text}}</option>
+          </select>
+        </div>
+        <div *ngIf="entity.entityType && entity.entityType === 'randomAccount'" class="form-group">
+          <label for="lifespan">Lifespan</label>
+          <select class="form-control" id="lifespan" required [(ngModel)]="entity.lifespan" name="lifespan">
+            <option *ngFor="let ls of selectOptions.lifespans" [value]="ls.value">{{ls.text}}</option>
+          </select>
+        </div>
+        <div *ngIf="entity.body && entity.entityType === 'generic'" class="form-group">
+          <label for="entityValue">Value</label>
+          <input type="text" class="form-control"  placeholder="1"  id="entityValue" [(ngModel)]="entity.body.value" name="entityValue">
+        </div>
+        <button type="submit" (click)="save()" class="btn btn-success float-right margin-sm">Save</button>
+        <button type="submit" (click)="delete()" class="btn btn-secondary  float-right margin-sm">Delete</button>
+      </form>
+      <br>
+      <div class="float-right">{{saved}}</div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <pre *ngIf="entity">
+Custom Field:
+{{entity | json}}
+      </pre>
+    </div>
+    <div class="col">
+      <pre *ngIf="entities">
+Custom Fields:
+{{entities | json}}
+      </pre>
+    </div>
+  </div>
+  <spinner *ngIf="!entities"></spinner>
+</div>

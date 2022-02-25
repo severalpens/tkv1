@@ -1,0 +1,178 @@
+<div *ngIf="contracts" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 header">
+      <h4>Contracts</h4>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-6">
+      <a class="btn btn-sm btn-primary float-right" href="https://remix.ethereum.org/" target="blank">
+        Remix (generate abi) <i class="fa fa-external-link"></i>
+      </a>
+      <button class="btn btn-sm btn-success float-right" (click)="addExisting()">
+        Add Contract
+      </button>
+    </div>
+  </div>
+  <div class="row">    
+    <div class="col-sm-3" >
+      <div *ngFor="let c of contracts" class="btn card" [class.alert-primary]="contract && c._id === contract._id"
+        [class.alert-secondary]="!contract || c._id !== contract._id" (click)="onSelect(c._id)">
+        <strong>{{c.name}} v{{c.body.version}} </strong>
+      </div>
+    </div>
+    <div class="col-sm-1"></div>
+    <div *ngIf="contract" class="col-sm-6" >
+      <h5>{{contract.name}}</h5>
+      <br>
+      <app-contract-readonly  *ngIf="isReadOnly" [c]="contract"></app-contract-readonly>
+      <form  *ngIf="!isReadOnly">
+        <div class="form-group">
+          <label for="name">name*</label>
+          <input  type="text" class="form-control" id="name" name="name" [(ngModel)]="contract.name" />
+        </div>
+
+        <div class="form-group">
+          <label for="symbol">symbol*</label>
+          <input type="text" required class="form-control" id="symbol" name="symbol" [(ngModel)]="contract.body.symbol" />
+        </div>
+
+
+        <div class="form-group">
+          <label for="version">version*</label>
+          <input type="text" required class="form-control" id="version" name="version" [(ngModel)]="contract.body.version" />
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="contractTypeInput">Type*</label>
+          <select class="form-control" name="contractTypeInput" id="contractTypeInput" [(ngModel)]="contract.body.contractType">
+            <option *ngFor="let x of selectOptions.contractTypes" [value]="x">{{x}}</option>
+          </select>
+        </div>
+
+
+
+        <div *ngIf="contract.body.contractType === 'ERC20'" class="form-group">
+          <label for="decimalsInput">decimals*</label>
+          <input type="text" required class="form-control" id="decimalsInput" name="decimalsInput" [(ngModel)]="contract.body.decimals" />
+        </div>
+
+
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea cols="30" rows="2" [(ngModel)]="contract.body.description" class="form-control" id="description"
+            name="description"></textarea>
+        </div>
+
+
+        <div class="form-group">
+          <label for="user_id">
+            user_id
+          </label>
+          <input type="text" [(ngModel)]="contract.user_id" class="form-control" id="user_id" name="user_id" />
+        </div>
+
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="ropstenAddress">
+                <a href="https://ropsten.etherscan.io/address/{{contract.body.addresses.ropsten}}" target="blank">Ropsten
+                  Address</a>
+              </label>
+              <input type="text" [(ngModel)]="contract.body.addresses.ropsten" class="form-control" id="ropstenAddress"
+                name="ropstenAddress" />
+            </div>
+          </div>
+        </div>
+
+     
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="kovanAddress">
+                <a href="https://kovan.etherscan.io/address/{{contract.body.addresses.kovan}}" target="blank">Kovan
+                  Address</a>
+              </label>
+              <input type="text" [(ngModel)]="contract.body.addresses.kovan" class="form-control" id="kovanAddress"
+                name="kovanAddress" />
+            </div>
+          </div>
+         
+        </div>
+
+
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="rinkebyAddress">
+                <a href="https://rinkeby.etherscan.io/address/{{contract.body.addresses.rinkeby}}" target="blank">Rinkeby
+                  Address</a>
+              </label>
+              <input type="text" [(ngModel)]="contract.body.addresses.rinkeby" class="form-control" id="rinkebyAddress"
+                name="rinkebyAddress" />
+            </div>
+          </div>
+        
+        </div>
+
+
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="goerliAddress">
+                <a href="https://goerli.etherscan.io/address/{{contract.body.addresses.goerli}}" target="blank">goerli
+                  Address</a>
+              </label>
+              <input type="text" [(ngModel)]="contract.body.addresses.goerli" class="form-control" id="goerliAddress"
+                name="goerliAddress" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="soliditycode">
+            <a href="http://remix.ethereum.org" target="blank">Solidity:</a>
+          </label>
+          <textarea cols="30" rows="10" [(ngModel)]="contract.body.soliditycode" class="form-control" id="soliditycode"
+            name="soliditycode"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="abiString">abi</label>
+          <textarea cols="30" rows="5" [(ngModel)]="abiString" class="form-control" id="abiString" name="abiString">
+            </textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="bytecodeInput">Bytecode</label>
+          <input type="text" [(ngModel)]="contract.body.bytecode" class="form-control" id="bytecodeInput" name="bytecodeInput">
+        </div>
+
+        <div class="form-group row">
+          <button name="btnInsertContract" *ngIf="newContract" id="btnInsertContract" class="btn btn-success" (click)="insert()">
+            Insert
+          </button>
+          <button hidden name="btnInsertContract" *ngIf="!newContract" id="btnInsertContract" class="btn btn-success" (click)="deploy()">
+            Deploy
+          </button>
+          <button name="btnSubmitContract" *ngIf="!newContract" id="btnSubmitContract" class="btn btn-primary" (click)="update()">
+            Update
+          </button>
+          <!-- <button *ngIf="!newContract" name="btnLockContract" id="btnLockContract" class="btn btn-light"
+              (click)="lock()">Lock</button> -->
+              <button name="btnDeleteContract" id="btnDeleteContract" class="btn btn-danger" (click)="delete()">
+                Delete
+              </button>
+            
+                </div>
+      </form>
+      <div class="fineprint">
+        *Required fields.
+      </div>
+
+    </div>
+  </div>
+</div>
+<spinner *ngIf="!contracts"></spinner>

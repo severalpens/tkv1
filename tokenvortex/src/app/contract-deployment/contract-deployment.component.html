@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <h4>Deploy Contract</h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-4">
+      <ul>
+        <li *ngFor="let contract of contracts" class="btn alert alert-warning d-block" (click)="onSelect(contract._id)">
+          <strong>
+            <span>{{ contract.name }}</span>
+          </strong>
+          <br />
+          <span>{{ contract.body.version }}</span>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="contract" class="col">
+      <h6>{{contract.name}}</h6>
+      <div class="form-group">
+        <label for="network">Network</label>
+        <select class="form-control" name="network" id="network" [(ngModel)]="network">
+          <option *ngFor="let network of selectOptions.networks" [value]="network">{{network}}</option>
+        </select>
+      </div>     
+      <div class="form-group">
+        <label for="address">address</label>
+        <input readonly class="form-control" name="address" [(ngModel)]="address">
+      </div>    
+      <div class="form-group">
+        <label for="msgSender">msgSender</label>
+        <select class="form-control" name="msgSender" id="msgSender" [(ngModel)]="msgSender">
+          <option *ngFor="let a of accounts" [ngValue]="a">{{a.name}}</option>
+        </select>
+      </div>
+      <div *ngFor="let input of inputs; let i=index" class="form-group">
+        <label for="{{i}}">{{input.name}}</label>
+        <input  class="form-control" [(ngModel)]="input.value" name="{{i}}">
+      </div>
+      <button name="deploy"  id="deploy" class="btn btn-success" (click)="deploy()">
+        Deploy
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <pre>
+        {{result| json}}
+        
+      </pre>
+    </div>
+  </div>
+</div>
+<spinner *ngIf="!contracts"></spinner>

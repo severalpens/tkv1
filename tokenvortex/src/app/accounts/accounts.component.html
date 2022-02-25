@@ -1,0 +1,122 @@
+<div *ngIf="accounts" class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 header">
+      <h4>Accounts</h4>
+    </div>
+    <div class="col-sm-1"></div>
+    <div class="col-sm-6">
+      <button class="btn btn-sm btn-success float-right" (click)="newRandom()">
+        Create Random
+      </button>
+      <button class="btn btn-sm btn-success float-right" (click)="newExisting()">
+        Add
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-3">
+      <div *ngFor="let a of accounts" class="btn card" [class.alert-primary]="account && a._id === account._id"
+        [class.alert-secondary]="!account || a._id !== account._id" (click)="onSelect(a._id)">
+        <strong>{{a.name}}</strong>
+         {{a.body.address.substring(0,6)}}...{{a.body.address.substring(38,42)}}
+      </div>
+    </div>
+    <div class="col-sm-1"></div>
+    <div *ngIf="account" class="col-sm-6">
+      <h5>{{account.name}}</h5>
+      <br>
+      <form *ngIf="readOnly">
+        <div class="form-group">
+          <label for="name">name*</label>
+          <input readonly type="text" class="form-control" id="name" name="name" [(ngModel)]="account.name">
+        </div>
+        <div class="form-group">
+          <label for="address">
+            address*
+          </label>
+          <span class='a'>
+            Etherscan: [
+            <a href="https://ropsten.etherscan.io/address/{{account.body.address}}" target="blank"
+              tabindex="-1">Ropsten</a>
+            <a href="https://kovan.etherscan.io/address/{{account.body.address}}" class="a" target="blank"
+              tabindex="-1">Kovan</a>
+            <a href="https://rinkeby.etherscan.io/address/{{account.body.address}}" class="a" tabindex="-1"
+              target="blank">Rinkeby</a>
+            <a href="https://goerli.etherscan.io/address/{{account.body.address}}" class="a" target="blank"
+              tabindex="-1">Goerli</a>
+            ]
+          </span>
+          <input readonly type="text" class="form-control" id="address" name="address"
+            [(ngModel)]="account.body.address">
+        </div>
+      </form>
+      <form *ngIf="!readOnly">
+        <div class="form-group">
+          <label for="name">name*</label>
+          <input type="text" class="form-control" id="name" name="name" [(ngModel)]="account.name">
+        </div>
+        <div class="form-group">
+          <label for="address">
+            address*
+          </label>
+          <span class='a'>
+            Etherscan: [
+            <a href="https://ropsten.etherscan.io/address/{{account.body.address}}" target="blank"
+              tabindex="-1">Ropsten</a>
+            <a href="https://kovan.etherscan.io/address/{{account.body.address}}" class="a" target="blank"
+              tabindex="-1">Kovan</a>
+            <a href="https://rinkeby.etherscan.io/address/{{account.body.address}}" class="a" tabindex="-1"
+              target="blank">Rinkeby</a>
+            <a href="https://goerli.etherscan.io/address/{{account.body.address}}" class="a" target="blank"
+              tabindex="-1">Goerli</a>
+            ]
+          </span>
+          <input type="text" class="form-control" id="address" name="address" [(ngModel)]="account.body.address">
+        </div>
+        <div class="form-group">
+          <label for="privateKey">privateKey<sup>&#x2620;</sup> (optional unless message sender^)</label>
+          <input type="text" class="form-control" id="privateKey" name="privateKey"
+            [(ngModel)]="account.body.privateKey">
+        </div>
+        <div>
+          <button  name="btnValidate" id="btnValidate" class="btn btn-info"
+            (click)="validate()">Validate</button>
+            <button *ngIf="!account._id" name="btnInsertAccount" id="btnInsertAccount" class="btn btn-success"
+            (click)="insert()">Save</button>
+          <button *ngIf="account._id" name="btnSubmitAccount" id="btnSubmitAccount" class="btn btn-primary"
+            (click)="update()">Save</button>
+          <button name="btnDeleteAccount" id="btnDeleteAccount" class="btn btn-danger"
+            (click)="delete()">Delete</button>
+        </div>
+        <div>
+          {{errorMessages}}
+        </div>
+        <br>
+        <div class="fineprint">
+          *Required fields.
+        </div>
+
+        <div class="fineprint">
+          <sup>&#x2620;</sup>Warning: Insecure storage. Only use for test accounts.
+          <br>
+          <br>
+          ^The message sender funds the transaction processing cost in the form of<a
+            href="https://ethereum.org/en/developers/docs/gas/" target="blank"> gas</a>.
+          <br>
+          <br>
+        </div>
+        <div class="a">
+          Value can be added to the test network accounts via Faucets: [
+          <a href="https://faucet.metamask.io/" target="_blank">Ropsten</a>
+          <a href="https://faucet.kovan.network/" class="a" target="_blank">Kovan</a>
+          <a href="https://faucet.rinkeby.io" class="a" target="_blank">Rinkeby</a>
+          <a href="https://goerli-faucet.slock.it/" target="blank" class="a">Goerli</a>
+          ]
+          <br>
+          <br>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<spinner *ngIf="!accounts"></spinner>

@@ -1,0 +1,43 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <button type="submit" (click)="refresh()" style="margin: 20px;" class="btn btn-info">Refresh</button>
+    </div>
+    <div class="col">
+      <button type="submit" (click)="startEth()" style="margin: 10px;" class="btn btn-success ">Start Eth</button>
+      <button type="submit" (click)="stopEth()" style="margin: 10px;" class="btn btn-secondary ">Stop Eth</button>
+      <button type="submit" (click)="resetEth()" style="margin: 10px;" class="btn btn-danger ">Reset Eth</button>
+      <br>
+      <p>isRunning: {{isRunningEth}}</p>
+    </div>
+    <div class="col">
+      <button type="submit" (click)="startBtc()" style="margin: 10px;" class="btn btn-success ">Start BTC</button>
+      <button type="submit" (click)="stopBtc()" style="margin: 10px;" class="btn btn-secondary ">Stop BTC</button>
+      <button type="submit" (click)="resetBtc()" style="margin: 10px;" class="btn btn-danger ">Reset BTC</button>
+      <br>
+      <p>isRunning: {{isRunningBtc}}</p>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <table *ngIf="blockTable" class="table">
+        <thead>
+          <tr>
+            <th *ngFor = "let header of blockTable.headers; let i=index">{{header}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor = "let row of blockTable.rows; let j=index">
+            <td *ngFor = "let key of blockTable.headers; let i=index">
+              <span *ngIf="row[key]">
+                {{row[key]}}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <spinner *ngIf="!blockTable"></spinner>
+    </div>
+  </div>
+</div>

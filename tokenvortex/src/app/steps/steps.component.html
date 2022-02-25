@@ -1,0 +1,114 @@
+<div class="container-fluid">
+  <sequence-header [sequence]="sequence" header="Steps"></sequence-header>
+  <div class="row flex-row flex-nowrap">
+    <div class="col-sm-2  margin">
+      <br>
+      <button class="btn btn-sm btn-outline btn-primary margin" (click)="add()">Add Step</button>
+      <h6>Steps:</h6>
+      <div *ngIf="sequence && sequence.steps">
+        <div *ngFor="let s of sequence.steps; let i=index" (click)="select(i)" class="btn alert  d-block align-left"
+          [class.alert-primary]="s === step" [class.alert-secondary]="s !== step">
+          <strong>
+            <span>{{s.method.name}}</span>
+          </strong>
+        </div>
+      </div>
+      <div *ngIf="step">
+        <button class="btn btn-outline-primary margin-sm" style="width: 100px" (click)="move('up')">Up</button>
+        <button class="btn btn-outline-primary margin-sm" style="width: 100px" (click)="move('down')">Down</button>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <form *ngIf="step" class="form">
+        <div class="row">
+          <div class="col control-group">
+            <label for="networkOptions" class="form-label">network</label>
+            <select id="networkOptions" name="networkOptions" class="form-control" [(ngModel)]="step.network">
+              <option class="option" id="option{{i}}" *ngFor="let s of selectOptions.networks; let i=index"
+                [ngValue]="s">{{s}}</option>
+            </select>
+          </div>
+
+
+          <div class="col control-group">
+            <label for="msgSenderOptions" class="form-label">msgSender</label>
+            <select id="msgSenderOptions" name="msgSenderOptions" class="form-control" [(ngModel)]="step.msgSender_id">
+              <option class="msgSenderOption{{i}}" id="msgSenderOption{{i}}" *ngFor="let a of accounts; let i=index"
+                [value]="a._id">{{a.name}}</option>
+            </select>
+          </div>
+
+          <div class="col control-group">
+            <label for="contractOptions" class="form-label">Contract</label>
+            <select id="contractOptions" name="contractOptions" class="form-control" [(ngModel)]="contract_id">
+              <option class="contractOption{{i}}" id="contractOption{{i}}" *ngFor="let c of contracts; let i=index"
+                [value]="c._id">{{c.name}}</option>
+            </select>
+          </div>
+
+          <div class="col control-group">
+            <label for="methodOptions" class="form-label">Method</label>
+            <select id="methodOptions" name="methodOptions" class="form-control" [(ngModel)]="methodName">
+              <option class="methodOption{{i}}" id="methodOption{{i}}" *ngFor="let m of methods; let i=index"
+                [value]="m.name">{{m.name}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+
+      <div *ngIf="step && step.method">
+        <br>
+        <p>Inputs:</p>
+        <form *ngFor="let input of step.method.inputs; let i=index" class="form" style="display:flex">
+          <input readonly class="form-control" [(ngModel)]="input.name" name="name">
+          <input readonly class="form-control" [(ngModel)]="input.type" name="type">
+
+          <select class="form-control" [(ngModel)]="input.source_id" name="inputSource_id{{i}}">
+            <option class="form-control" *ngFor="let e of entities" [value]="e._id">
+              {{e.name}}</option>
+          </select>
+
+          <select class="form-control" [(ngModel)]="input.posId" name="inputPosId{{i}}">
+            <option class="form-control" *ngFor="let i of getOptions(input.source_id); let j=index" [value]="j">
+              {{i.text}}</option>
+          </select>
+
+        </form>
+      </div>
+      <!-- <div *ngIf="methodName && step.method.stateMutability === 'view'">
+              <p>outputs:</p>
+              <br>
+              <form *ngFor="let output of outputs; let i=index" class="form" style="display:flex">
+                <input readonly class="form-control" [(ngModel)]="output.name" name="name">
+                <input readonly class="form-control" [(ngModel)]="output.type" name="type">
+                <select class="form-control" [(ngModel)]="output.internalType" name="key.value">
+                  <option class="form-control" *ngFor="let o of  selectOptions.outputs; let p=index" [value]="o.internalType">{{o.text}}</option>
+                </select>
+              </form>
+              <br>
+              <br>
+              <br>
+              <br>
+            </div> -->
+      <div *ngIf="step && step.method">
+        <br>
+        <br>
+        <button type="submit" (click)="save(true)" class="btn btn-primary float-right margin-sm">Run (Logs) --></button>
+        <button type="submit" (click)="save(false)" class="btn btn-success float-right margin-sm">Save</button>
+        <button type="submit" (click)="delete()" class="btn btn-secondary  float-right margin-sm">Delete</button>
+      </div>
+      <br>
+      <br>
+      <br>
+      <div class="float-right">{{saved}}</div>
+    </div>
+    <div *ngIf="false" class="col-sm-6 margin">
+        <pre>Step -  {{step.method.name}}:
+{{step | json}}</pre>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+</div>
+<spinner *ngIf="!sequence"></spinner>

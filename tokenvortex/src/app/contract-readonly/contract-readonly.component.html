@@ -1,0 +1,104 @@
+      <form>
+        <div class="form-group">
+          <label for="name">name*</label>
+          <input  readonly type="text" class="form-control" id="name" name="name" [value]="c.name" />
+        </div>
+
+        <div class="form-group">
+          <label for="symbol">symbol*</label>
+          <input readonly type="text" required class="form-control" id="symbol" name="symbol" [value]="c.body.symbol" />
+        </div>
+
+
+        <div class="form-group">
+          <label for="version">version*</label>
+          <input readonly type="text" required class="form-control" id="version" name="version" [value]="c.body.version" />
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="cTypeInput">Type*</label>
+          <input readonly class="form-control" name="cTypeInput" id="cTypeInput" [value]="c.body.contractType">
+        </div>
+
+        <div class="form-group">
+          <label for="decimalsInput">decimals*</label>
+          <input readonly class="form-control" name="decimalsInput" id="decimalsInput" [value]="c.body.decimals">
+        
+        </div>
+
+
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea readonly cols="30" rows="2" [value]="c.body.description" class="form-control" id="description" name="description"></textarea>
+        </div>
+
+
+        <div class="form-group">
+          <label for="user_id">
+            user_id
+          </label>
+          <input readonly type="text" [value]="c.user_id" class="form-control" id="user_id" name="user_id" />
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="ropstenAddress">
+                <a href="https://ropsten.etherscan.io/address/{{c.body.addresses.ropsten}}" target="blank">Ropsten
+                  Address</a>
+              </label>
+              <input readonly type="text" [value]="c.body.addresses.ropsten" class="form-control" id="ropstenAddress"
+                name="ropstenAddress" />
+            </div>
+          </div>
+        </div>     
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="kovanAddress">
+                <a href="https://kovan.etherscan.io/address/{{c.body.addresses.kovan}}" target="blank">Kovan
+                  Address</a>
+              </label>
+              <input readonly type="text" [value]="c.body.addresses.kovan" class="form-control" id="kovanAddress"
+                name="kovanAddress" />
+            </div>
+          </div>         
+        </div>
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="rinkebyAddress">
+                <a href="https://rinkeby.etherscan.io/address/{{c.body.addresses.rinkeby}}" target="blank">Rinkeby
+                  Address</a>
+              </label>
+              <input readonly type="text" [value]="c.body.addresses.rinkeby" class="form-control" id="rinkebyAddress"
+                name="rinkebyAddress" />
+            </div>
+          </div>
+        
+        </div>
+
+
+
+        <div class="form-row">
+          <div class="col">
+            <div class="form-group">
+              <label for="goerliAddress">
+                <a href="https://goerli.etherscan.io/address/{{c.body.addresses.goerli}}" target="blank">goerli
+                  Address</a>
+              </label>
+              <input readonly type="text" [value]="c.body.addresses.goerli" class="form-control" id="goerliAddress"
+                name="goerliAddress" />
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="soliditycode">
+            <a href="http://remix.ethereum.org" target="blank">Solidity:</a>
+          </label>
+          <textarea readonly cols="30" rows="10" [value]="c.body.soliditycode" class="form-control" id="soliditycode"
+            name="soliditycode"></textarea>
+        </div>
+      </form>
+     

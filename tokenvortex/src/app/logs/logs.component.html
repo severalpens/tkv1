@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <sequence-header [sequence]="sequence" header="Logs"></sequence-header>
+  <div *ngIf="sequence" class="row">
+    <div class="col-sm-3  margin">
+      <br>
+      <button class="btn btn-sm btn-outline btn-danger margin-sm" (click)="delete()">Delete</button>
+      <button class="btn btn-sm btn-outline btn-success margin-sm" (click)="reset()">Reset</button>
+      <button class="btn btn-sm btn-outline btn-primary margin-sm" (click)="run()">Run Next</button>
+      <button class="btn btn-sm btn-outline btn-info margin-sm" (click)="refresh()">Refresh</button>
+      <br>
+      <br>
+      <h6>Steps:</h6>
+      <table  class="table">
+        <tbody>
+          <tr *ngFor = "let s of sequence.steps; let i=index" class="{{s.status}}">
+            <td>{{s.method.name}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="logs" class="col-sm-2  margin">
+      <div *ngFor="let l of logs.slice().reverse(); let i=index" (click)="log = l" class="btn alert" [class.alert-primary]="l === log" [class.alert-secondary]="l !== log">
+        <span>{{l.step.method.name}}</span> 
+      </div>
+    </div>  
+    <div *ngIf="log" class="col-sm-6">
+      <a *ngIf="log.tx.transactionHash" href="https://{{log.step.network}}.etherscan.io/tx/{{log.tx.transactionHash}}" target="blank">log</a>
+      <span *ngIf="!log.tx.transactionHash">{{log.step.method.name}}</span>
+      <pre>{{log | json}}</pre>
+    </div>    
+    <div class="col-sm-3">
+      <br>
+      <pre>{{sequence.posId | json}}</pre>
+      <!-- <pre>{{sequence | json}}</pre> -->
+    </div>
+  </div>
+</div>
+<spinner *ngIf="!sequence"></spinner>

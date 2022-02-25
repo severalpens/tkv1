@@ -1,0 +1,127 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+
+  <br/>
+  <div >
+    <h3>Token Vortex</h3>
+    By <a href="https://www.linkedin.com/in/paul-collins-541b2053/" target="blank">Paul Collins</a> 
+    <br>
+    <br>
+    <h6>Technical Description</h6>
+      TokenVortex is an <a href="https://ethereum.org/en/"  target="blank">Ethereum</a> contract manager and transaction sequence tester. With TokenVortex you can add a contract and run methods similar to <a href="https://remix.ethereum.org"  target="blank">Remix</a>. 
+      With TokenVortex however, you can set up a sequence of methods to be executed. The sequence can then be run whenever needed and a collection of logs recorded.
+      You can also store a history of contract and test account information using a traditional app user account.
+      TokenVortex makes it easy to test out your <a href="https://ethereum.org/en/"  target="blank">Ethereum</a> contract using easy to access accounts and input variables.
+</div>
+<br/> 
+<br/> 
+ <div >
+  <h6>Non-Technical Description</h6>
+  A blockchain like <a href="https://bitcoin.org/en/"  target="blank">Bitcoin</a> is analogous to a bank with one currency. The Ethereum blockchain is analogous to users being able to create their own bank with their own currency and built in virtual bank tellers.
+  Bank teller procedures can be written and sent to the bank. 
+  For example:
+  <br>
+  <br>
+
+  <ol>
+    <li>Provide ID</li>
+    <li>Open Account</li>
+    <li>Deposit Funds</li>
+  </ol>
+
+  These processes have to be extremely secure before being implemented. Invalid or insecure procedures need to be identified for example:
+
+  <br>
+  <br>
+  <ol>
+    <li>Provide ID</li>
+    <li>Leave money on counter and go for a walk</li>
+    <li>Deposit Funds</li>
+    <li>Open Account</li>
+  </ol>
+The above is a scenario would fail both from a security and functional perspective.
+<br>
+<br>
+Without a sequence tester, the procedure can still be tested using tools such as <a href="https://remix.ethereum.org"  target="blank">Remix</a> but getting the results from one step and manually using them in the next 
+could end up being a difficult and time consuming task. <br>  <br> Alternatively an 'off-chain' script could be written using a  programming language such as
+  javascript just to get these steps to run in order automatically. <br>  <br> Specialists in cryptography and web security however may not have the required programming skills or the time to learn a programming language.
+  TokenVortex automates the testing process without having to implement a programming script. Developers can write and test out the 'bank teller' procedures using 'monopoly money' (test networks) before deploying to the 'bank' (The Ethereum blockchain).
+
+</div>
+<br/>
+<br/>
+<div >
+  <h6>Back Story</h6>
+<a href="https://www.researchgate.net/profile/Babu_Pillai"  target="blank">Babu Pillai</a>, doctoral candidate at <a href="https://www.griffith.edu.au/about-griffith/campuses-facilities/gold-coast"  target="blank">Griffith University Gold Coast</a>  working on securing the transfer value between
+blockchains needed a website to use as an experimental lab. I volunteered to build the web application that
+would insecurely transfer value but provide a gap between application driven transactions where different cryptographical
+approaches could be applied.
+<br>
+
+</div>
+<br/>
+<br/>
+<div>
+<h6>Technical Specs</h6>
+<ul>
+  <li>The client side is an <a href="https://angular.io"  target="blank">Angular</a> application hosted on Google Cloud via <a href="https://firebase.google.com"  target="blank">Firebase</a> (free tier).</li>
+  <li>The server side is a  <a href="https://nodejs.org"  target="blank"> Node</a> based <a href="https://expressjs.com/en/starter/generator.html"  target="blank"> Express Generator </a> application hosted on <a href="https://heroku.com"  target="blank">Heroku</a> (free tier).</li>
+  <li>Account and contract data is stored and retrieved from a <a href="https://mongodb.com"  target="blank">Mongodb</a> database (free tier).</li>
+
+  <li><a href="https://www.npmjs.com/package/ethers"  target="blank">Ethers.js</a> is used to interface with the <a href="https://ethereum.org"  target="blank">Ethereum</a> network.</li>
+
+  <li hidden>The <a href="https://www.investopedia.com/terms/g/gas-ethereum.asp"  target="blank">gas</a> for transactions is funded by the <a href="https://tokenvortex.web.app/accounts/5e7aab7d154a962db45a8520"  target="blank">admin</a> account. </li>
+
+    <li>Ether for the test environments can be generated via <a href="https://faucet.rinkeby.io/"  target="blank">faucets.</a>
+      (
+        <a href="https://goerli-faucet.slock.it/" target="blank">goerli</a>,
+      <a href="https://faucet.rinkeby.io" target="_blank">rinkeby</a>,
+      <a href="https://faucet.metamask.io/" target="_blank">ropsten</a> ,
+      <a href="https://faucet.kovan.network/" target="_blank">kovan</a> )
+     </li>
+     <li hidden>The TokenVortex contract was built using inherited ERC20 contracts from <a href="https://docs.openzeppelin.com/contracts/2.x/erc20"  target="blank">OpenZeppelin</a>.</li>
+     <li hidden >The contract was initially compiled using <a href="https://www.trufflesuite.com/"  target="blank">Truffle</a>, <a href="https://etherlime.gitbook.io/etherlime/developer-documentation/etherlime-cli/flattener"  target="blank">flattened</a> using <a href="https://www.npmjs.com/package/etherlime"  target="blank">Etherlime</a>, then finally re-compiled and deployed in <a href="https://remix.ethereum.org/"  target="blank">Remix.</a></li>
+     <li >The source code is stored in <a href="https://github.com/severalpens"  target="blank">Github</a>. Pull requests welcome.
+    </ul>
+</div>
+
+<br>
+
+<div>
+  <h6>Backlog Tasks</h6>
+  The app needs more work. Here is a list of the features that will be added. Pull requests welcome.
+  <ul>
+    <li><strong>Capture method outputs:</strong> Outputs from <a href="https://solidity.readthedocs.io/en/v0.7.4/contracts.html?highlight=view#view-functions"  target="blank">view</a> method calls need to be captured and stored in a custom field. The outputs are specified in the <a href="https://solidity.readthedocs.io/en/v0.7.4/abi-spec.html"  target="blank">ABI</a> so the same code used to specify inputs can be used.</li>
+    <li><strong>Push transaction updates:</strong> At the moment, a refresh button is supplied to get updates on running transactions. By incorporating <a href="https://rxjs-dev.firebaseapp.com/"  target="blank">RXJS</a> Observables with <a href="https://socket.io/"  target="blank">socket.io</a>, updates will be received as push notifications.</li>
+    <li><strong>Run All:</strong> Sequences are currently run manually one method at a time. 'Run all' functionality needs to be added in to fully automate running the sequence.</li>
+    <li><strong>Events:</strong> Contract events are also specified in the ABI so capturing these should be similar to capturing 'view' transaction outputs.</li>
+    <li><strong>Results Table:</strong>The results are currently displayed as a JSON dump with an <a href="https://etherscan.io/" target="blank">Etherscan</a> link. A results table is needed to clean up the display of transaction results.</li>
+    <li><strong>Compiler:</strong> Incorporate the <a href="https://www.npmjs.com/package/solc" target="blank">solc</a> library to compile contracts</li>
+  </ul>
+</div>
+  <br>
+  <div hidden="true" >
+    <h6>Issues & Pull Requests</h6>
+    Github Pull Requests are welcome:
+    <ul>
+      <li><a href="https://github.com/severalpens/tokenvortex"  target="_blank">Client-side Angular project</a></li>
+      <li><a href="https://github.com/severalpens/tokenvortexapi"  target="_blank">Server-side Node.js api project</a></li>
+      <li><a href="https://github.com/severalpens/severalpensauth"  target="_blank">Server-side Node.js auth server</a></li>
+    </ul>
+    <br>
+</div>
+  <br/>
+  <div >
+      <br/>
+      <br/>
+  </div>
+</div>
+</div>
+</div>
+<br/>
+<br/>
+<br/>
+
+<br/>
+

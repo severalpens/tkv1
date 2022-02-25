@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col">
+      <btc-header></btc-header>
+    </div>
+  </div>
+  <btc-settings *ngIf="section === 'settings'"></btc-settings>
+  <btc-init *ngIf="section === 'init'"></btc-init>
+  <btc-transfer *ngIf="section === 'transfer'"></btc-transfer>
+  <div *ngIf="!section">
+    <pre>
+      {{btc | json}}
+    </pre>
+  </div>
+</div>

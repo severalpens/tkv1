@@ -1,0 +1,26 @@
+<div class="container">
+  <br />
+  <br />
+  <br />
+  <div *ngIf="!isLoggedIn" class="col-md-12">
+    <em>
+      <h2>Token Vortex</h2>
+      Store any <a target="_blank"
+      href="https://ethereum.org/what-is-ethereum/">Ethereum</a> blockchain contract and test it out by creating and running your own transaction sequences.
+    </em>
+    <br>
+    <br>
+    <em>
+      <a href="/login">Login</a>,  <a href="/register">register</a> or watch a quick demo <a href="https://youtu.be/aYiN8NFZzAU" target="blank">video</a>.
+    </em>
+    <br>
+    <br>
+  </div>
+
+  <div *ngIf="isLoggedIn" class="col-md-12">
+    <em>
+      <h2>Welcome {{currentUser.username}}!</h2>
+    </em>
+  </div>
+
+</div>

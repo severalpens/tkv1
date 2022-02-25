@@ -1,0 +1,82 @@
+<div class="row"  *ngIf="btc">
+  <div class="col-md-6">
+    <h6>Settings:</h6>
+    <form *ngIf="btc" class="margin">
+      <div class="form-group">
+        <label for="senderNetwork">Sender Network</label>
+        <select class="form-control" name="senderNetwork" [(ngModel)]="btc.settings.senderNetwork">
+          <option *ngFor="let n of selectOptions.networks" [value]="n">{{n}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="sender">Sender</label>
+        <select class="form-control" name="sender" [(ngModel)]="sender">
+          <option *ngFor="let a of accounts" [ngValue]="a">{{a.name}}  ({{a.body.address.substring(0,6)}}...{{a.body.address.substring(38,42)}})</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="recipientNetwork">Recipient Network</label>
+        <select class="form-control" name="recipientNetwork" [(ngModel)]="btc.settings.recipientNetwork">
+          <option *ngFor="let n of selectOptions.networks" [value]="n">{{n}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="recipient">Recipient</label>
+        <select class="form-control" name="recipient" [(ngModel)]="recipient">
+          <option *ngFor="let a of accounts" [ngValue]="a">{{a.name}} ({{a.body.address.substring(0,6)}}...{{a.body.address.substring(38,42)}})</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="token">Token</label>
+        <select class="form-control" name="token" [(ngModel)]="token">
+          <option *ngFor="let c of contracts" [ngValue]="c">{{c.name}}</option>
+        </select>
+      </div>      
+      <div class="form-group">
+        <label for="agent">Agent</label>
+        <select class="form-control" name="agent" [(ngModel)]="agent">
+          <option *ngFor="let c of contracts" [ngValue]="c">{{c.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="tokenAmount">Amount</label>
+        <input class="form-control" name="tokenAmount" type="number" [(ngModel)]="btc.settings.tokenAmount">
+      </div>
+      <div class="form-group">
+        <label for="timeoutSeconds">Timeout Seconds</label>
+        <input class="form-control" name="timeoutSeconds" type="number" [(ngModel)]="btc.settings.timeoutSeconds">
+      </div>
+      <div class="form-check">
+        <label class="form-check-label">
+          <input type="checkbox" class="form-check-input" name="useOverrides" [(ngModel)]="btc.settings.useOverrides">
+          Use Overrides
+        </label>
+      </div>
+      <br>
+      <div *ngIf="btc.settings.useOverrides" class="form-group">
+        <label for="gasLimit">Override: Gas Limit</label>
+        <input class="form-control" name="gasLimit" type="number" [(ngModel)]="btc.settings.overrides.gasLimit">
+      </div>
+      <div *ngIf="btc.settings.useOverrides" class="form-group">
+        <label for="gasPriceGwei">Override: Gas Price (Gwei)</label>
+        <input class="form-control" name="gasPriceGwei" type="text" [(ngModel)]="btc.settings.overrides.gasPriceGwei">
+      </div>
+      <div class="form-group">
+        <button *ngIf="!updating" (click)="save()" class="btn btn-primary" type="button">
+          Update
+        </button>
+        <button *ngIf="updating" class="btn btn-primary" type="button" disabled>
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Updating...
+        </button>
+        {{saved}}
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <h6>Balances</h6>
+    <br>
+  <btc-balances></btc-balances>
+</div>
+</div>
+<spinner *ngIf="!btc"></spinner>

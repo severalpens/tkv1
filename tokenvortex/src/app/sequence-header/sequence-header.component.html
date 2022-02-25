@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-4 margin">
+    <h2><a href="/sequences">Transaction Sequence Builder</a></h2>
+    <div *ngIf="sequence">
+      <h4>
+        <a href="/sequences/{{sequence._id}}">Sequence: {{sequence.name}}</a>
+      </h4>
+      <a href="/sequences/{{sequence._id}}">sequence</a> -->
+      <a href="/steps/{{sequence._id}}">steps</a> -->
+      <a href="/logs/{{sequence._id}}">logs</a>
+    </div>
+  </div>
+  <div class="col-md-4 margin">
+    <h4 class="margin">{{header}}</h4>
+
+  </div>
+</div>

@@ -1,0 +1,41 @@
+
+.frow{
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+.fcol{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.flexbox-item{
+  width: 500px;
+  margin: 10px;
+  padding: 10px;
+  border: 3px solid #333;
+  background-color: #dfdfdf;
+}
+
+.flexbox-item-1 {
+  min-height: 100px;  
+  
+}
+
+.margin{
+  margin-top: 10px;
+
+}
+
+.flexbox-item-2 {
+  min-height: 300px;  
+}
+
+.flexbox-item-3 {
+  min-height: 300px;  
+}

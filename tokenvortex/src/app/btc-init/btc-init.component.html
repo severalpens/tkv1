@@ -1,0 +1,51 @@
+<div class="row"   *ngIf="btc">
+  <div class="col-md-6">
+      <h6>Initialize:</h6>
+      <div>Transfer an initial balance to the burn-to-claim agent on both networks.</div>
+      <form class="margin">
+        <div class="form-group">
+          <label for="network">Network</label>
+          <select class="form-control" name="network" [(ngModel)]="network">
+            <option *ngFor="let n of selectOptions.networks" [value]="n">{{n}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="token">Token</label>
+          <select class="form-control" name="token" [(ngModel)]="token">
+            <option *ngFor="let c of contracts" [ngValue]="c">{{c.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="msgSender">Message Sender (from)</label>
+          <select class="form-control" name="msgSender" [(ngModel)]="msgSender">
+            <option *ngFor="let a of accounts" [value]="a">{{a.name}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="agentAddress">Agent Address (to)</label>
+          <input readonly class="form-control" name="agentAddress" type="text" [(ngModel)]="agentAddress">
+        </div>
+        <div class="form-group">
+          <label for="initialBalance">Initial Balance Amount</label>
+          <input class="form-control" name="initialBalance" type="number" [(ngModel)]="initialBalance">
+        </div>
+        <div class="form-group">
+          <button  *ngIf="!transferring" (click)="run()" class="btn btn-primary" type="button">
+            Transfer
+          </button>
+          <button *ngIf="transferring" class="btn btn-primary" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            Transferring...
+          </button>        
+          {{transferred}}
+        </div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <h6>Balances</h6>
+      <br>
+    <btc-balances></btc-balances>
+  </div>
+  </div>
+      
+  <spinner *ngIf="!btc"></spinner>
